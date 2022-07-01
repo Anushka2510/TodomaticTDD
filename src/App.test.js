@@ -1,8 +1,18 @@
-import { render, screen } from '@testing-library/react';
+/* eslint-disable testing-library/prefer-screen-queries */
+import { render } from '@testing-library/react';
 import App from './App';
+import React from "react";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+describe("App Component Layout", () => {
+  test("check if the heading is rendered", async () => {
+    const { getByText } = render(<App data={[]} />);
+    const headingText = getByText("Todomatic");
+    expect(headingText).toBeDefined();
+  });
+
+  test("remaining task text to be rendered", async () => {
+    const { getByTestId } = render(<App data={[]} />);
+    expect(getByTestId("remaining-task")).toHaveTextContent("0 task remaining");
+  });
 });
